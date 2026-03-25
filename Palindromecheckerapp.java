@@ -38,15 +38,6 @@ public class PalindromeCheckerApp {
         // UC9: Recursive Palindrome Checker
         checkPalindromeUsingRecursion();
 
-        // UC10: Case-Insensitive & Space-Ignored Palindrome
-        checkPalindromeWithNormalization();
-
-        // UC11: Object-Oriented Palindrome Service
-        checkPalindromeUsingService();
-
-        // UC12: Strategy Pattern for Palindrome Algorithms
-        checkPalindromeUsingStrategy();
-
         // Program continues to next use case or exits
         System.out.println("System initialized successfully.");
     }
@@ -281,105 +272,5 @@ public class PalindromeCheckerApp {
 
         // Recursive call: Move to next inner pair of characters
         return isPalindromeRecursive(input, start + 1, end - 1);
-    }
-
-    // UC10: Check palindrome ignoring spaces and case
-    private static void checkPalindromeWithNormalization() {
-        String input = "A man a plan a canal Panama";
-        boolean result = isPalindromeWithNormalization(input);
-        System.out.println("Input: " + input);
-        System.out.println("Is palindrome? : " + result);
-    }
-
-    // Checks if a string is a palindrome after normalizing (removing spaces and
-    // converting to lowercase)
-    private static boolean isPalindromeWithNormalization(String input) {
-        // Normalize: Remove spaces and convert to lowercase
-        String normalized = input.replaceAll("\\s+", "").toLowerCase();
-
-        // Check palindrome using two-pointer approach
-        for (int i = 0; i < normalized.length() / 2; i++) {
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    // UC11: Object-oriented service check helper
-    private static void checkPalindromeUsingService() {
-        String input = "racecar";
-        boolean result = palindromeCheckerService(input);
-        System.out.println("Input: " + input);
-        System.out.println("Is palindrome (service)? : " + result);
-    }
-
-    // UC11: Encapsulated palindrome service method
-    // Demonstrates encapsulation and single responsibility principle
-    private static boolean palindromeCheckerService(String text) {
-        if (text == null) return false;
-        int start = 0;
-        int end = text.length() - 1;
-        while (start < end) {
-            if (text.charAt(start) != text.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
-        }
-        return true;
-    }
-
-    // UC12: Strategy Pattern for Palindrome Algorithms
-    private static void checkPalindromeUsingStrategy() {
-        String input = "level";
-        
-        // Using StackStrategy
-        boolean resultStack = checkUsingStackStrategy(input);
-        System.out.println("Input: " + input);
-        System.out.println("Is palindrome (StackStrategy)? : " + resultStack);
-        
-        // Using DequeStrategy
-        boolean resultDeque = checkUsingDequeStrategy(input);
-        System.out.println("Is palindrome (DequeStrategy)? : " + resultDeque);
-    }
-
-    // UC12: Stack-Based Strategy Implementation
-    private static boolean checkUsingStackStrategy(String input) {
-        if (input == null) return false;
-        Stack<Character> stack = new Stack<>();
-        
-        // Push each character of the input string into the stack
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
-        
-        // Compare characters by popping from the stack
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // UC12: Deque-Based Strategy Implementation
-    private static boolean checkUsingDequeStrategy(String input) {
-        if (input == null) return false;
-        Deque<Character> deque = new ArrayDeque<>();
-        
-        // Add each character to the deque
-        for (char c : input.toCharArray()) {
-            deque.add(c);
-        }
-        
-        // Compare characters from both ends
-        while (deque.size() > 1) {
-            if (deque.removeFirst() != deque.removeLast()) {
-                return false;
-            }
-        }
-        return true;
     }
 }
